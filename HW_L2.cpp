@@ -3,7 +3,7 @@
 #include "MyLib.h"
 
 #include "Task1.h"
-//#include "Task2.h"
+#include "Task2.h"
 //#include "Task3.h"
 
 
@@ -27,6 +27,32 @@ void Task1()
 
 void Task2()
 {
+	const size_t size = 25;
+	std::vector<int32_t*> myArray;
+	myArray.reserve(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		int32_t* element = new int32_t(std::rand() % 100 );
+		myArray.push_back(element);
+	}
+	
+	auto printArr = [&myArray]()
+	{
+		for (const auto i : myArray)
+		{
+			std::cout << *i << " ";
+		}
+		std::cout << std::endl;
+	};
+
+	printArr();
+	SortPointers<int>(myArray);
+	printArr();
+
+	for (auto i : myArray)
+	{
+		delete i;
+	}
 }
 
 void Task3()
@@ -37,6 +63,8 @@ void Task3()
 int main()
 {
 	setlocale(LC_ALL, "RU");
+
+	std::srand(std::time(0));
 
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
