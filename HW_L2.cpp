@@ -1,10 +1,14 @@
 ﻿#include <windows.h>
 #include <iostream>
+#include <fstream>
+
 #include "MyLib.h"
+#include "RunTimer.h"
+
 
 #include "Task1.h"
 #include "Task2.h"
-//#include "Task3.h"
+#include "Task3.h"
 
 
 void Task1()
@@ -55,8 +59,40 @@ void Task2()
 	}
 }
 
+
 void Task3()
-{
+{	
+	std::ifstream file("../Input.txt");
+	file.seekg(0, std::ios::end);
+	size_t size = file.tellg();
+	file.seekg(0);
+	string s(size, ' ');
+	file.read(&s[0], size);
+	
+	std::string vowels = "АОИЕЁЭЫУЮЯаоиеёэыуюя";
+
+	uint16_t count;
+	RunTimer timer;
+	timer.start("Count_if_find");
+	count = Count_if_find(s, vowels);
+	timer.print();
+	std::cout << count << " Гласных" << std::endl;
+
+	timer.start("Count_if_for");
+	count = Count_if_for(s, vowels);
+	timer.print();
+	std::cout << count << " Гласных" << std::endl;
+
+	timer.start("For_find");
+	count = For_find(s, vowels);
+	timer.print();
+	std::cout << count << " Гласных" << std::endl;
+
+	timer.start("For_For");
+	count = For_For(s, vowels);
+	timer.print();
+	std::cout << count << " Гласных" << std::endl;
+
 }
 
 
